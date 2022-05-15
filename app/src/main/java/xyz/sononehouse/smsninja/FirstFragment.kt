@@ -13,6 +13,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import xyz.sononehouse.smsninja.databinding.FragmentFirstBinding
 import java.lang.Exception
+import java.util.*
 import kotlin.coroutines.CoroutineContext
 
 
@@ -41,16 +42,18 @@ class FirstFragment : Fragment(), CoroutineScope by MainScope(){
         super.onViewCreated(view, savedInstanceState)
 
         binding.buttonFirst.setOnClickListener {
-            val fr = ForwardRule(".*-ICICI", ".*", "xyz")
-            fr.isMatch("AM-ICICIB", "")
-            fr.isMatch("AM-CANBNK", "")
-            fr.isMatch("X-ICICIBX", "")
+//            val fr = ForwardRule(".*-ICICI", ".*", "xyz")
+//            fr.isMatch("AM-ICICIB", "")
+//            fr.isMatch("AM-CANBNK", "")
+//            fr.isMatch("X-ICICIBX", "")
             findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
 
             launch {
-                Coordinator().storeKV("ashish", "sonone")
+                val locationKey = "ashish"
+                val base64SecretKey = QuickStore(requireActivity()).get("secretKey")
 
-                EncryptionUtils.test()
+                val payload = EncryptionUtils.genBase64EncryptedPayload("The time is " + Date(), base64SecretKey!!)
+                Coordinator().storeKV(locationKey, payload)
             }
 
 //            val setCall = service.store("k1", "v1")

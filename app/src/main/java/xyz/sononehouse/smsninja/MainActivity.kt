@@ -38,6 +38,9 @@ class MainActivity : AppCompatActivity() {
                     .setAnchorView(R.id.fab)
                     .setAction("Action", null).show()
         }
+
+        QuickStore(this).set("secretKey", "KE/GCsVuR6I9JddC/WXM+w==")
+        QuickStore(this).set("locationKey", "location123")
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

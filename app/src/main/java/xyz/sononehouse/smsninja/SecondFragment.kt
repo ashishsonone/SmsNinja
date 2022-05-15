@@ -6,13 +6,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.launch
 import xyz.sononehouse.smsninja.databinding.FragmentSecondBinding
 import java.lang.Exception
 
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
  */
-class SecondFragment : Fragment() {
+class SecondFragment : Fragment(), CoroutineScope by MainScope() {
 
     private var _binding: FragmentSecondBinding? = null
 
@@ -39,27 +42,40 @@ class SecondFragment : Fragment() {
 
         binding.decodeButton.setOnClickListener {
 
-            try {
-                val encryptedText = binding.encryptedET.text.toString()
-                val secret = binding.secretET.text.toString()
-
-                val tokens = encryptedText.split(':')
-                val ivPart = tokens.get(0)
-                val cipherPart = tokens.get(1)
-
-                val decryptedText = EncryptionUtils.do_AESDecryption(
-                    EncryptionUtils.decodeBase64(cipherPart),
-                    EncryptionUtils.getSecretKey(EncryptionUtils.decodeBase64(secret)),
-                    EncryptionUtils.decodeBase64(ivPart)
-                )
-
-                binding.decryptedTV.text = "[Success] ${decryptedText}"
+            launch {
+                decodeAndShow()
             }
-            catch (e : Exception) {
-                binding.decryptedTV.text = "[Error] Unable to decode ${e.message}"
-            }
+
+        }
+
+        binding.secretET.setText(QuickStore(requireActivity()).get("secretKey")!!)
+        binding.locationKeyET.setText(QuickStore(requireActivity()).get("locationKey")!!)
+    }
+
+    suspend fun decodeAndShow() {
+        try {
+            val locationKey = binding.locationKeyET.text.toString()
+            val secret = binding.secretET.text.toString()
+
+            val encryptedPayload = Coordinator().getK(locationKey)
+
+            val tokens = encryptedPayload!!.split(':')
+            val ivPart = tokens.get(0)
+            val cipherPart = tokens.get(1)
+
+            val decryptedText = EncryptionUtils.do_AESDecryption(
+                EncryptionUtils.decodeBase64(cipherPart),
+                EncryptionUtils.getSecretKey(EncryptionUtils.decodeBase64(secret)),
+                EncryptionUtils.decodeBase64(ivPart)
+            )
+
+            binding.decryptedTV.text = "[Success]\n${decryptedText}"
+        }
+        catch (e : Exception) {
+            binding.decryptedTV.text = "[Error]\nUnable to decode ${e.message}"
         }
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

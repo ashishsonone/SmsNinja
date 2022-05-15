@@ -153,4 +153,23 @@ object EncryptionUtils {
         val originalKey: SecretKey = SecretKeySpec(decodedKey, 0, decodedKey.size, "AES")
         return originalKey
     }
+
+    fun genBase64EncryptedPayload(plainText: String, base64SecretKey: String): String {
+        val k : SecretKey = getSecretKey(decodeBase64(base64SecretKey))
+
+        val initializationVector = createInitializationVector()
+        val encodedIV = String(encodeBase64(initializationVector!!))
+
+        val cipherText = do_AESEncryption(
+            plainText,
+            k,
+            initializationVector
+        )
+        val encodedCipherText = String(encodeBase64(cipherText!!))
+
+        val encPayload = "${encodedIV}:${encodedCipherText}"
+        Log.d(LOGTAG, "Encrypted Payload is: " + encPayload)
+
+        return encPayload
+    }
 }
