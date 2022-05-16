@@ -24,7 +24,7 @@
 
         <EditText
             android:id="@+id/bodyRegexET"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:hint="Body Regex"
@@ -35,11 +35,10 @@
 
         <EditText
             android:id="@+id/senderRegexET"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:hint="Sender Regex"
-            android:inputType="textPassword"
             app:layout_constraintBottom_toTopOf="@id/configureRuleButton"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -61,6 +60,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:inputType="textPassword"
             android:text="..."
             app:layout_constraintBottom_toBottomOf="@id/secretCopyButton"
             app:layout_constraintEnd_toStartOf="@id/secretCopyButton"
@@ -75,7 +75,7 @@
             android:layout_margin="16dp"
             android:textSize="11sp"
             android:text="Copy Secret"
-            app:layout_constraintBottom_toTopOf="@id/locationKeyCopy"
+            app:layout_constraintBottom_toTopOf="@id/locationKeyCopyButton"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/secretTV"
             app:layout_constraintTop_toBottomOf="@id/configureRuleButton" />
@@ -86,14 +86,14 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="..."
-            app:layout_constraintBottom_toBottomOf="@id/locationKeyCopy"
-            app:layout_constraintEnd_toStartOf="@id/locationKeyCopy"
+            app:layout_constraintBottom_toBottomOf="@id/locationKeyCopyButton"
+            app:layout_constraintEnd_toStartOf="@id/locationKeyCopyButton"
             app:layout_constraintHorizontal_bias="0.525"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/secretCopyButton" />
 
         <Button
-            android:id="@+id/locationKeyCopy"
+            android:id="@+id/locationKeyCopyButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"

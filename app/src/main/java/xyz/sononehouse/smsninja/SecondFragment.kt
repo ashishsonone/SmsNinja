@@ -41,12 +41,20 @@ class SecondFragment : Fragment(), CoroutineScope by MainScope() {
         }
 
         binding.decodeButton.setOnClickListener {
+            // persist any changes to locationKey and secretKey
+
+            QuickStore.set("secretKey", binding.secretET.text.toString())
+            QuickStore.set("locationKey", binding.locationKeyET.text.toString())
 
             launch {
                 decodeAndShow()
             }
 
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
 
         binding.secretET.setText(QuickStore.get("secretKey")!!)
         binding.locationKeyET.setText(QuickStore.get("locationKey", ""))

@@ -42,13 +42,13 @@ class MainActivity : AppCompatActivity() {
                     .setAction("Action", null).show()
         }
 
-        QuickStore.set("secretKey", "KE/GCsVuR6I9JddC/WXM+w==")
-
         if (QuickStore.get("clientId").isNullOrEmpty()) {
             val clientId = UUID.randomUUID().toString()
             Log.d(LOGTAG, "Generating the clientId ${clientId}")
             QuickStore.set("clientId", clientId)
         }
+
+        // QuickStore.set("forwardRule", "")
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

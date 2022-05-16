@@ -4,7 +4,7 @@ import android.util.Log
 import java.util.*
 import java.util.regex.Pattern
 
-class ForwardRule(val ruleName: String, val senderPattern: String, val bodyPattern: String, val locationKey: String, val base64SecretKey: String) {
+class ForwardRule(val ruleName: String, var senderPattern: String, var bodyPattern: String, val locationKey: String, val base64SecretKey: String) {
     suspend fun invoke(sender: String, body: String): Boolean {
         Log.d("``ForwardRule", "Running rule $ruleName")
         Log.d("``ForwardRule", "Running rule sender=$sender, body=$body")
