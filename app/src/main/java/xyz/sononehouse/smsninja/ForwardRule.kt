@@ -13,7 +13,7 @@ class ForwardRule(val ruleName: String, val senderPattern: String, val bodyPatte
             Log.d("``ForwardRule", "match success, forwarding...")
             val plainText = "${Date()} \n $sender \n $body"
             val encryptedPayload = EncryptionUtils.genBase64EncryptedPayload(plainText, base64SecretKey)
-            Coordinator().storeKV(locationKey, encryptedPayload)
+            Coordinator().storeKV(locationKey, encryptedPayload, QuickStore.get("clientId") !!)
 
             return true
         }
@@ -29,7 +29,10 @@ class ForwardRule(val ruleName: String, val senderPattern: String, val bodyPatte
         val m = p.matcher(text)
         if (m.find()) {
             Log.d("``ForwardRule", "m.group()=" + m.group())
-            return true
+            if (m.group().length >= 3) {
+                // atleast should match 3 characters, otherwise it's risky that it matches by mistake
+                return true
+            }
         }
         return false
     }

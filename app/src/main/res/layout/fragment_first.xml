@@ -16,21 +16,94 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/next"
-            app:layout_constraintBottom_toTopOf="@id/textview_first"
+            app:layout_constraintBottom_toTopOf="@id/bodyRegexET"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
         />
 
-        <TextView
-            android:id="@+id/textview_first"
+        <EditText
+            android:id="@+id/bodyRegexET"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="@string/lorem_ipsum"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:hint="Body Regex"
+            app:layout_constraintBottom_toTopOf="@id/senderRegexET"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/button_first" />
+
+        <EditText
+            android:id="@+id/senderRegexET"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:hint="Sender Regex"
+            android:inputType="textPassword"
+            app:layout_constraintBottom_toTopOf="@id/configureRuleButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/bodyRegexET" />
+
+        <Button
+            android:id="@+id/configureRuleButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Configure Rule"
+            app:layout_constraintBottom_toTopOf="@id/secretCopyButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/senderRegexET" />
+
+        <TextView
+            android:id="@+id/secretTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="..."
+            app:layout_constraintBottom_toBottomOf="@id/secretCopyButton"
+            app:layout_constraintEnd_toStartOf="@id/secretCopyButton"
+            app:layout_constraintHorizontal_bias="0.525"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/configureRuleButton" />
+
+        <Button
+            android:id="@+id/secretCopyButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:textSize="11sp"
+            android:text="Copy Secret"
+            app:layout_constraintBottom_toTopOf="@id/locationKeyCopy"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/secretTV"
+            app:layout_constraintTop_toBottomOf="@id/configureRuleButton" />
+
+        <TextView
+            android:id="@+id/locationKeyTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="..."
+            app:layout_constraintBottom_toBottomOf="@id/locationKeyCopy"
+            app:layout_constraintEnd_toStartOf="@id/locationKeyCopy"
+            app:layout_constraintHorizontal_bias="0.525"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/secretCopyButton" />
+
+        <Button
+            android:id="@+id/locationKeyCopy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:textSize="11sp"
+            android:text="Copy Location"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/locationKeyTV"
+            app:layout_constraintTop_toBottomOf="@id/secretTV" />
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

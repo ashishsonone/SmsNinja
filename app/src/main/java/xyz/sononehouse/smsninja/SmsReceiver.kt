@@ -67,8 +67,8 @@ class SmsReceiver() : BroadcastReceiver(), CoroutineScope by MainScope() {
         // todo extract senderId, body, timestamp & create SmsEntity
         try {
             val sms = extractSms(intent)
-            val secretKey = QuickStore(context!!).get("secretKey")!!
-            val locationKey = QuickStore(context!!).get("locationKey")!!
+            val secretKey = QuickStore.get("secretKey")!!
+            val locationKey = QuickStore.get("locationKey")!!
 
             val rule = ForwardRule("test", ".*", "Sony LIV OTP", locationKey, secretKey)
 

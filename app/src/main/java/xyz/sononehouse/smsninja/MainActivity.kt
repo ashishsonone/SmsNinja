@@ -3,6 +3,7 @@ package xyz.sononehouse.smsninja
 import android.os.Bundle
 import android.os.StrictMode
 import android.os.StrictMode.ThreadPolicy
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
@@ -13,9 +14,11 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.google.android.material.snackbar.Snackbar
 import xyz.sononehouse.smsninja.databinding.ActivityMainBinding
+import java.util.*
 
 
 class MainActivity : AppCompatActivity() {
+    val LOGTAG = "``MainActivity"
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
@@ -39,8 +42,13 @@ class MainActivity : AppCompatActivity() {
                     .setAction("Action", null).show()
         }
 
-        QuickStore(this).set("secretKey", "KE/GCsVuR6I9JddC/WXM+w==")
-        QuickStore(this).set("locationKey", "location123")
+        QuickStore.set("secretKey", "KE/GCsVuR6I9JddC/WXM+w==")
+
+        if (QuickStore.get("clientId").isNullOrEmpty()) {
+            val clientId = UUID.randomUUID().toString()
+            Log.d(LOGTAG, "Generating the clientId ${clientId}")
+            QuickStore.set("clientId", clientId)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

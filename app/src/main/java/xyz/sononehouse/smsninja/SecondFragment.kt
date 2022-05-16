@@ -48,8 +48,8 @@ class SecondFragment : Fragment(), CoroutineScope by MainScope() {
 
         }
 
-        binding.secretET.setText(QuickStore(requireActivity()).get("secretKey")!!)
-        binding.locationKeyET.setText(QuickStore(requireActivity()).get("locationKey")!!)
+        binding.secretET.setText(QuickStore.get("secretKey")!!)
+        binding.locationKeyET.setText(QuickStore.get("locationKey", ""))
     }
 
     suspend fun decodeAndShow() {

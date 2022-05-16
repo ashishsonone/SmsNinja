@@ -1,20 +1,14 @@
 package xyz.sononehouse.smsninja
 
-import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import kotlinx.coroutines.*
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 import xyz.sononehouse.smsninja.databinding.FragmentFirstBinding
-import java.lang.Exception
 import java.util.*
-import kotlin.coroutines.CoroutineContext
 
 
 /**
@@ -49,11 +43,15 @@ class FirstFragment : Fragment(), CoroutineScope by MainScope(){
             findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
 
             launch {
-                val locationKey = "ashish"
-                val base64SecretKey = QuickStore(requireActivity()).get("secretKey")
+                if (QuickStore.get("locationKey").isNullOrEmpty()) {
+                    val key = Coordinator().generateKey(QuickStore.get("clientId")!!)
+                    QuickStore.set("locationKey", key)
+                }
 
-                val payload = EncryptionUtils.genBase64EncryptedPayload("The time is " + Date(), base64SecretKey!!)
-                Coordinator().storeKV(locationKey, payload)
+                // val base64SecretKey = QuickStore.get("secretKey")
+
+                // val payload = EncryptionUtils.genBase64EncryptedPayload("The time is " + Date(), base64SecretKey!!)
+                // Coordinator().storeKV(QuickStore.get("locationKey")!!, payload, QuickStore.get("clientId")!!)
             }
 
 //            val setCall = service.store("k1", "v1")
