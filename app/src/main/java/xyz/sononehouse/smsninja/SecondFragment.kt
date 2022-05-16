@@ -51,19 +51,33 @@ class SecondFragment : Fragment(), CoroutineScope by MainScope() {
             }
 
         }
+
+        binding.pasteLocationButton.setOnClickListener {
+            val clipValue = Utility.getClipboardValue()
+            if (clipValue != null) {
+                binding.locationKeyET.setText(clipValue)
+            }
+        }
+
+        binding.pasteSecretButton.setOnClickListener {
+            val clipValue = Utility.getClipboardValue()
+            if (clipValue != null) {
+                binding.secretET.setText(clipValue)
+            }
+        }
     }
 
     override fun onResume() {
         super.onResume()
 
-        binding.secretET.setText(QuickStore.get("secretKey")!!)
+        binding.secretET.setText(QuickStore.get("secretKey", ""))
         binding.locationKeyET.setText(QuickStore.get("locationKey", ""))
     }
 
     suspend fun decodeAndShow() {
         try {
-            val locationKey = binding.locationKeyET.text.toString()
-            val secret = binding.secretET.text.toString()
+            val locationKey = binding.locationKeyET.text.toString().trim()
+            val secret = binding.secretET.text.toString().trim()
 
             val encryptedPayload = Coordinator().getK(locationKey)
 
