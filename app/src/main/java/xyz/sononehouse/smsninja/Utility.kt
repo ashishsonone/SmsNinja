@@ -7,6 +7,8 @@ import android.content.Context
 import android.util.Log
 
 object Utility {
+    val KEY_STATS = "stats"
+
     val LOGTAG = "``Utility"
     fun storeIntoClipboard(text: String) {
         Log.d(LOGTAG, "Copying ${text}")

@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import xyz.sononehouse.smsninja.databinding.FragmentSecondBinding
 import java.lang.Exception
@@ -43,21 +44,34 @@ class SecondFragment : Fragment(), CoroutineScope by MainScope() {
         binding.decodeButton.setOnClickListener {
             // persist any changes to locationKey and secretKey
 
-            QuickStore.set("secretKey", binding.secretET.text.toString())
-            QuickStore.set("locationKey", binding.locationKeyET.text.toString())
+            binding.decryptedTV.text = "Decoding...."
+
+            val combo = binding.secretET.text.toString()
+            val tokens = combo.split(":")
+            if (tokens.size != 2) {
+                binding.decryptedTV.text = "Invalid decoding key"
+                return@setOnClickListener
+            }
+
+            val locationKey = tokens[0]
+            val secretKey = tokens[1]
+
+            QuickStore.set("locationKey", locationKey)
+            QuickStore.set("secretKey", secretKey)
 
             launch {
-                decodeAndShow()
+                delay(1000)
+                decodeAndShow(locationKey, secretKey)
             }
 
         }
 
-        binding.pasteLocationButton.setOnClickListener {
-            val clipValue = Utility.getClipboardValue()
-            if (clipValue != null) {
-                binding.locationKeyET.setText(clipValue)
-            }
-        }
+//        binding.pasteLocationButton.setOnClickListener {
+//            val clipValue = Utility.getClipboardValue()
+//            if (clipValue != null) {
+//                binding.locationKeyET.setText(clipValue)
+//            }
+//        }
 
         binding.pasteSecretButton.setOnClickListener {
             val clipValue = Utility.getClipboardValue()
@@ -70,15 +84,18 @@ class SecondFragment : Fragment(), CoroutineScope by MainScope() {
     override fun onResume() {
         super.onResume()
 
-        binding.secretET.setText(QuickStore.get("secretKey", ""))
-        binding.locationKeyET.setText(QuickStore.get("locationKey", ""))
+
+        val secretKey = QuickStore.get("secretKey", "")
+        val locationKey = QuickStore.get("locationKey", "")
+        val combo = "$locationKey:$secretKey"
+
+        binding.secretET.setText(combo)
+
+        //binding.locationKeyET.setText(QuickStore.get("locationKey", ""))
     }
 
-    suspend fun decodeAndShow() {
+    suspend fun decodeAndShow(locationKey: String, secret: String) {
         try {
-            val locationKey = binding.locationKeyET.text.toString().trim()
-            val secret = binding.secretET.text.toString().trim()
-
             val encryptedPayload = Coordinator().getK(locationKey)
 
             val tokens = encryptedPayload!!.split(':')

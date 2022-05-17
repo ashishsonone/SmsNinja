@@ -16,50 +16,52 @@
             android:id="@+id/button_second"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/previous"
-            app:layout_constraintBottom_toTopOf="@id/locationKeyET"
+            android:text="@string/next"
+            app:layout_constraintBottom_toTopOf="@id/secretET"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <EditText
-            android:id="@+id/locationKeyET"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:hint="Location Key"
-            app:layout_constraintBottom_toTopOf="@id/secretET"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/button_second" />
+<!--        <EditText-->
+<!--            android:visibility="gone"-->
+<!--            android:id="@+id/locationKeyET"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="16dp"-->
+<!--            android:hint="Location Key"-->
+<!--            app:layout_constraintBottom_toTopOf="@id/secretET"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/button_second" />-->
 
-        <ImageView
-            android:id="@+id/pasteLocationButton"
-            android:layout_width="wrap_content"
-            android:src="@drawable/baseline_assignment_24"
-            app:layout_constraintStart_toEndOf="@id/locationKeyET"
-            app:layout_constraintBottom_toTopOf="@id/secretET"
-            app:layout_constraintTop_toBottomOf="@id/button_second"
-            android:layout_height="wrap_content"/>
+<!--        <ImageView-->
+<!--            android:visibility="gone"-->
+<!--            android:id="@+id/pasteLocationButton"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:src="@drawable/baseline_assignment_24"-->
+<!--            app:layout_constraintStart_toEndOf="@id/locationKeyET"-->
+<!--            app:layout_constraintBottom_toTopOf="@id/secretET"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/button_second"-->
+<!--            android:layout_height="wrap_content"/>-->
 
         <EditText
             android:id="@+id/secretET"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:hint="Secret Key"
+            android:hint="Combo Key"
             android:inputType="textPassword"
             app:layout_constraintBottom_toTopOf="@id/decodeButton"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/locationKeyET" />
+            app:layout_constraintTop_toBottomOf="@id/button_second" />
         <ImageView
             android:id="@+id/pasteSecretButton"
             android:layout_width="wrap_content"
             android:src="@drawable/baseline_assignment_24"
             app:layout_constraintStart_toEndOf="@id/secretET"
             app:layout_constraintBottom_toTopOf="@id/decodeButton"
-            app:layout_constraintTop_toBottomOf="@id/locationKeyET"
+            app:layout_constraintTop_toBottomOf="@id/button_second"
             android:layout_height="wrap_content"/>
         <Button
             android:id="@+id/decodeButton"

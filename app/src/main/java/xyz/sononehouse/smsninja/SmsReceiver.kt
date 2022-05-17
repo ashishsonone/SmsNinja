@@ -64,6 +64,10 @@ class SmsReceiver() : BroadcastReceiver(), CoroutineScope by MainScope() {
 
         Log.d(LOGTAG, "action=$action")
 
+        val stats = QuickStore.getStats()
+        stats.received += 1
+        QuickStore.storeStats(stats)
+
         // todo extract senderId, body, timestamp & create SmsEntity
         try {
             val sms = extractSms(intent)
@@ -77,8 +81,15 @@ class SmsReceiver() : BroadcastReceiver(), CoroutineScope by MainScope() {
                     rule.invoke(sms.sender, sms.body)
                 }
             }
+            val stats = QuickStore.getStats()
+            stats.processSuccess += 1
+            QuickStore.storeStats(stats)
         }
         catch (e: Exception) {
+            val stats = QuickStore.getStats()
+            stats.processError += 1
+            QuickStore.storeStats(stats)
+
             e.printStackTrace()
             Log.d(LOGTAG, "error in onReceive(): ${e.message}")
         }

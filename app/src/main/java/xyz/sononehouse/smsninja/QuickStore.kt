@@ -55,4 +55,23 @@ object QuickStore {
         Log.d(LOGTAG, "storeForwardRule ${jsonValue}")
         this.set("forwardRule", jsonValue)
     }
+
+    fun getStats() : Stats {
+        val gson = Gson()
+        val storedValue = this.get("stats", null)
+        Log.d(LOGTAG, "getStats ${storedValue}")
+        if (storedValue.isNullOrEmpty()) {
+            return Stats(0, 0, 0, 0)
+        }
+
+        val stats = gson.fromJson(storedValue!!, Stats::class.java)
+        return stats
+    }
+
+    fun storeStats(stats: Stats) {
+        val gson = Gson()
+        val jsonValue = gson.toJson(stats)
+        Log.d(LOGTAG, "storeStats ${jsonValue}")
+        this.set("stats", jsonValue)
+    }
 }

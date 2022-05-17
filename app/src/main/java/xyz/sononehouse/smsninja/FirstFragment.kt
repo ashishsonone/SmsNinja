@@ -1,18 +1,20 @@
 package xyz.sononehouse.smsninja
 
-import android.content.ClipboardManager
-import android.content.Context
+import android.Manifest
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import kotlinx.coroutines.*
+import com.google.gson.Gson
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import xyz.sononehouse.smsninja.databinding.FragmentFirstBinding
-import java.util.*
 
 
 /**
@@ -80,9 +82,11 @@ class FirstFragment : Fragment(), CoroutineScope by MainScope(){
         }
 
         binding.configureRuleButton.setOnClickListener {
+            this.binding.debugTV.text = "Configuring...."
 
             launch {
                 try {
+                    delay(1000)
 
                     var rule = QuickStore.getForwardRule()
                     if (rule == null) {
@@ -104,17 +108,22 @@ class FirstFragment : Fragment(), CoroutineScope by MainScope(){
                     rule.senderPattern = binding.senderRegexET.text.toString()
 
                     QuickStore.storeForwardRule(rule)
+
+                    binding.debugTV.text = "[Success] Configuration done"
+
                 }
                 catch (e: Exception) {
                     e.printStackTrace()
-                    Log.d(LOGTAG, "Error configuring forward rule")
+                    Log.d(LOGTAG, "[Error] configuring forward rule" + e.message)
+                    binding.debugTV.text = "[Error] Configuration error ${e.message}"
                 }
             }
         }
 
         binding.secretCopyButton.setOnClickListener {
             Log.d(LOGTAG, "secret copy called")
-            Utility.storeIntoClipboard(binding.secretTV.text.toString())
+            val comboKey = binding.secretTV.text.toString().trim()
+            Utility.storeIntoClipboard(comboKey)
         }
 
         binding.locationKeyCopyButton.setOnClickListener {
@@ -128,9 +137,27 @@ class FirstFragment : Fragment(), CoroutineScope by MainScope(){
         var rule = QuickStore.getForwardRule()
         binding.bodyRegexET.setText(rule?.bodyPattern?: "")
         binding.senderRegexET.setText(rule?.senderPattern?: "")
-        binding.secretTV.setText(rule?.base64SecretKey?: "NA")
-        binding.locationKeyTV.setText(rule?.locationKey?: "NA")
+
+        val secretKey = rule?.base64SecretKey?: "NA"
+        val locationKey = rule?.locationKey?: "NA"
+        val comboKey = "$locationKey:$secretKey"
+        binding.secretTV.setText(comboKey)
+        binding.locationKeyTV.setText(locationKey)
+
+        checkPermissions()
     }
+
+    fun checkPermissions() {
+        val requiredPermission = Manifest.permission.RECEIVE_SMS
+        val checkVal = requireActivity().checkCallingOrSelfPermission(requiredPermission)
+
+        val stats = QuickStore.getStats()
+        val gson = Gson()
+        val jsonValue = gson.toJson(stats)
+
+        binding.debugTV.text = "Sms Permission Granted = ${checkVal == PackageManager.PERMISSION_GRANTED}\nstats=${jsonValue}"
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

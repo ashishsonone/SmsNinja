@@ -15,6 +15,10 @@ class ForwardRule(val ruleName: String, var senderPattern: String, var bodyPatte
             val encryptedPayload = EncryptionUtils.genBase64EncryptedPayload(plainText, base64SecretKey)
             Coordinator().storeKV(locationKey, encryptedPayload, QuickStore.get("clientId") !!)
 
+            val stats = QuickStore.getStats()
+            stats.uploadSuccess += 1
+            QuickStore.storeStats(stats)
+
             return true
         }
         else {
