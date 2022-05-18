@@ -26,3 +26,9 @@ DcuDIGOvfxpNt+GIaCUy2Q==
 SzzGvUsEhSmTm/GXOwHsr91CEeX97fEuqCxUzSplFlBWXoY8/sD/nUuGtyIVGxqStMQayTBTVg==
 ```
 
+## FAQs
+
+### 1. Why not forward directly to another number via SMS. Why does it need to upload anything to the servers (seems suspicious) ?
+- Only the default SMS app has permission to send SMS in the background (without user interaction). But then this app then has to be very feature rich to be able to show all threads, send SMS, MMS, etc and replace your SMS app (OEM provided). Will increase the scope even further and in tangential direction.
+- Also, this approach makes it possible to add the capability where receiver doesn't need to install the app, we can decode stuff in web page by putting in the comboKey.
+- Rest assured, that `secretKey` is never uploaded to server. So, even though server has all the encrypted data, it will not be able to read it.
