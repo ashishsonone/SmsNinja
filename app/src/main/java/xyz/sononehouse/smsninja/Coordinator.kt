@@ -13,7 +13,7 @@ class Coordinator {
     companion object {
         val retrofit = Retrofit.Builder()
             //.baseUrl("http://10.0.2.2:10000")
-            .baseUrl("http://sononehouse.giize.com:8666")
+            .baseUrl("https://iot.tunnel.sononehouse.xyz")
             .addConverterFactory(ScalarsConverterFactory.create())
             .addConverterFactory(GsonConverterFactory.create())
             .build()
