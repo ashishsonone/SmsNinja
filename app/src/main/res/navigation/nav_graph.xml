@@ -5,24 +5,35 @@
     android:id="@+id/nav_graph"
     app:startDestination="@id/SecondFragment">
 
-    <fragment
-        android:id="@+id/FirstFragment"
-        android:name="xyz.sononehouse.smsninja.FirstFragment"
-        android:label="@string/first_fragment_label"
-        tools:layout="@layout/fragment_first">
+<!--    <fragment-->
+<!--        android:id="@+id/FirstFragment"-->
+<!--        android:name="xyz.sononehouse.smsninja.RuleEditorPage"-->
+<!--        android:label="@string/first_fragment_label"-->
+<!--        tools:layout="@layout/fragment_first">-->
 
-        <action
-            android:id="@+id/action_FirstFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
-    </fragment>
+<!--        <action-->
+<!--            android:id="@+id/action_FirstFragment_to_ThirdFragment"-->
+<!--            app:destination="@id/ThirdFragment" />-->
+<!--    </fragment>-->
     <fragment
         android:id="@+id/SecondFragment"
-        android:name="xyz.sononehouse.smsninja.SecondFragment"
+        android:name="xyz.sononehouse.smsninja.DecoderPage"
         android:label="@string/second_fragment_label"
         tools:layout="@layout/fragment_second">
 
         <action
-            android:id="@+id/action_SecondFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
+            android:id="@+id/action_Decoder_to_Rules"
+            app:destination="@id/ThirdFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/ThirdFragment"
+        android:name="xyz.sononehouse.smsninja.RulesListPage"
+        android:label="@string/third_fragment_label"
+        tools:layout="@layout/fragment_rules">
+
+        <action
+            android:id="@+id/action_Rules_to_Decoder"
+            app:destination="@id/SecondFragment" />
     </fragment>
 </navigation>

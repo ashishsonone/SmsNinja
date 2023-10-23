@@ -37,6 +37,13 @@ object QuickStore {
         }
     }
 
+    fun remove(key: String) {
+        with (sharedPrefs.edit()) {
+            remove(key)
+            apply()
+        }
+    }
+
     fun getForwardRule() : ForwardRule? {
         val gson = Gson()
         val storedValue = this.get("forwardRule", null)
@@ -54,6 +61,11 @@ object QuickStore {
         val jsonValue = gson.toJson(rule)
         Log.d(LOGTAG, "storeForwardRule ${jsonValue}")
         this.set("forwardRule", jsonValue)
+    }
+
+    fun deleteForwardRule() {
+        Log.d(LOGTAG, "deleteForwardRule invoked")
+        remove("forwardRule")
     }
 
     fun getStats() : Stats {

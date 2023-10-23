@@ -2,8 +2,9 @@
     <string name="app_name">Sms Nijna</string>
     <string name="action_settings">Settings</string>
     <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">Forwarding Rule</string>
+    <string name="first_fragment_label">Edit Forwarding Rule</string>
     <string name="second_fragment_label">Decoder</string>
+    <string name="third_fragment_label">Rules List</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
 

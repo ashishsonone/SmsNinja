@@ -20,7 +20,7 @@ import xyz.sononehouse.smsninja.databinding.FragmentFirstBinding
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
  */
-class FirstFragment : Fragment(), CoroutineScope by MainScope(){
+class RuleEditorPage : Fragment(), CoroutineScope by MainScope(){
     val LOGTAG = "``FirstFragment"
 
     private var _binding: FragmentFirstBinding? = null
@@ -47,7 +47,7 @@ class FirstFragment : Fragment(), CoroutineScope by MainScope(){
 //            fr.isMatch("AM-ICICIB", "")
 //            fr.isMatch("AM-CANBNK", "")
 //            fr.isMatch("X-ICICIBX", "")
-            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
+            findNavController().navigate(R.id.action_Decoder_to_Rules)
 
 
             launch {
@@ -79,6 +79,23 @@ class FirstFragment : Fragment(), CoroutineScope by MainScope(){
 //            }
 
 
+        }
+
+        binding.deleteRuleButton.setOnClickListener {
+            this.binding.debugTV.text = "Deleting"
+
+            launch {
+                try {
+                    delay(1000)
+                    QuickStore.deleteForwardRule()
+                    binding.debugTV.text = "[Success] Rule deleted"
+                }
+                catch (e: Exception) {
+                    e.printStackTrace()
+                    Log.d(LOGTAG, "[Error] deleting forward rule" + e.message)
+                    binding.debugTV.text = "[Error] delete error ${e.message}"
+                }
+            }
         }
 
         binding.configureRuleButton.setOnClickListener {

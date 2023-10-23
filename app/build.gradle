@@ -1,10 +1,16 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
 }
 
 android {
     compileSdk 32
+
+    dataBinding {
+        enabled = true
+    }
 
     defaultConfig {
         applicationId "xyz.sononehouse.smsninja"
@@ -32,6 +38,10 @@ android {
     buildFeatures {
         viewBinding true
     }
+}
+
+kapt {
+    generateStubs = true
 }
 
 dependencies {

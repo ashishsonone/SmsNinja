@@ -16,7 +16,7 @@ import java.lang.Exception
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
  */
-class SecondFragment : Fragment(), CoroutineScope by MainScope() {
+class DecoderPage : Fragment(), CoroutineScope by MainScope() {
 
     private var _binding: FragmentSecondBinding? = null
 
@@ -38,7 +38,7 @@ class SecondFragment : Fragment(), CoroutineScope by MainScope() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.buttonSecond.setOnClickListener {
-            findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
+            findNavController().navigate(R.id.action_Decoder_to_Rules)
         }
 
         binding.decodeButton.setOnClickListener {
@@ -55,6 +55,7 @@ class SecondFragment : Fragment(), CoroutineScope by MainScope() {
 
             val locationKey = tokens[0]
             val secretKey = tokens[1]
+
 
             QuickStore.set("locationKey", locationKey)
             QuickStore.set("secretKey", secretKey)

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FirstFragment">
+    tools:context=".RuleEditorPage">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -39,10 +39,21 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:hint="Sender Regex"
-            app:layout_constraintBottom_toTopOf="@id/configureRuleButton"
+            app:layout_constraintBottom_toTopOf="@id/deleteRuleButton"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/bodyRegexET" />
+
+        <Button
+            android:id="@+id/deleteRuleButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Delete Rule"
+            app:layout_constraintBottom_toTopOf="@id/configureRuleButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/senderRegexET" />
 
         <Button
             android:id="@+id/configureRuleButton"
@@ -53,7 +64,8 @@
             app:layout_constraintBottom_toTopOf="@id/secretCopyButton"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/senderRegexET" />
+            app:layout_constraintTop_toBottomOf="@id/deleteRuleButton" />
+
 
         <TextView
             android:id="@+id/secretTV"
