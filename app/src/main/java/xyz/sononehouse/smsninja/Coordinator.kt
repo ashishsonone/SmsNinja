@@ -42,6 +42,18 @@ class Coordinator {
         Log.d("``Coordinator", "store: key=${key}, response body=${storeResponse.body()?.message}, code=" + storeResponse.code())
     }
 
+    suspend fun logEvent(event: String, data: Any) = withContext(Dispatchers.IO) {
+        val storeDeferred = async {
+            val device = Utility.getDeviceName() + QuickStore.get("clientId")!!
+            service.sendEvent(EventRequest(device, "sms-ninja", event, data)).execute()
+        }
+
+        val storeResponse = storeDeferred.await()
+        Log.d("``Coordinator", "logEvent: event=${event}, response body=${storeResponse.body()?.message}, code=" + storeResponse.code())
+    }
+
+
+
     suspend fun getK(key: String) = withContext(Dispatchers.IO) {
         val getDeferred = async {
             service.get(key).execute()

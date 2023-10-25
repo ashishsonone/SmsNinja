@@ -47,7 +47,7 @@ class RuleEditorPage : Fragment(), CoroutineScope by MainScope(){
 //            fr.isMatch("AM-ICICIB", "")
 //            fr.isMatch("AM-CANBNK", "")
 //            fr.isMatch("X-ICICIBX", "")
-            findNavController().navigate(R.id.action_Decoder_to_Rules)
+            findNavController().navigate(R.id.action_FirstFragment_to_ThirdFragment)
 
 
             launch {

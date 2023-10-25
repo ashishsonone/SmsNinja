@@ -1,10 +1,13 @@
 package xyz.sononehouse.smsninja
 
+import android.R.attr.capitalize
 import android.content.ClipData
 import android.content.ClipDescription.MIMETYPE_TEXT_PLAIN
 import android.content.ClipboardManager
 import android.content.Context
+import android.os.Build
 import android.util.Log
+
 
 object Utility {
     val KEY_STATS = "stats"
@@ -24,5 +27,11 @@ object Utility {
             return item?.text.toString()
         }
         return null
+    }
+
+    fun getDeviceName(): String? {
+        val manufacturer = Build.MANUFACTURER
+        val model = Build.MODEL
+        return "[$manufacturer:$model]"
     }
 }

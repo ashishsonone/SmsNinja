@@ -15,4 +15,7 @@ interface SnippetsAPI {
 
     @GET("/api/snippets/get")
     fun get(@Query("key") key: String): Call<String>
+
+    @POST("/api/snippets/event")
+    fun sendEvent(@Body body: EventRequest): Call<EventResponse>
 }

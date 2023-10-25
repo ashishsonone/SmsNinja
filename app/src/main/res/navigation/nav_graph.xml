@@ -5,16 +5,17 @@
     android:id="@+id/nav_graph"
     app:startDestination="@id/SecondFragment">
 
-<!--    <fragment-->
-<!--        android:id="@+id/FirstFragment"-->
-<!--        android:name="xyz.sononehouse.smsninja.RuleEditorPage"-->
-<!--        android:label="@string/first_fragment_label"-->
-<!--        tools:layout="@layout/fragment_first">-->
+    <fragment
+        android:id="@+id/FirstFragment"
+        android:name="xyz.sononehouse.smsninja.RuleEditorPage"
+        android:label="@string/first_fragment_label"
+        tools:layout="@layout/fragment_first">
 
-<!--        <action-->
-<!--            android:id="@+id/action_FirstFragment_to_ThirdFragment"-->
-<!--            app:destination="@id/ThirdFragment" />-->
-<!--    </fragment>-->
+        <action
+            android:id="@+id/action_FirstFragment_to_ThirdFragment"
+            app:destination="@id/SecondFragment" />
+    </fragment>
+
     <fragment
         android:id="@+id/SecondFragment"
         android:name="xyz.sononehouse.smsninja.DecoderPage"
@@ -23,7 +24,7 @@
 
         <action
             android:id="@+id/action_Decoder_to_Rules"
-            app:destination="@id/ThirdFragment" />
+            app:destination="@id/FirstFragment" />
     </fragment>
 
     <fragment

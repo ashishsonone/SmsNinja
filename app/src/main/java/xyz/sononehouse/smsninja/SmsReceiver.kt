@@ -78,7 +78,7 @@ class SmsReceiver() : BroadcastReceiver(), CoroutineScope by MainScope() {
             }
             else {
                 launch {
-                    rule.invoke(sms.sender, sms.body)
+                    rule.invoke(sms.date, sms.sender, sms.body)
                 }
             }
             val stats = QuickStore.getStats()
